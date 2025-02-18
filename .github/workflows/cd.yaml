@@ -1,11 +1,12 @@
 name: Release Application
 
 on:
-  # ADD YOUR TRIGGER HERE
+  push:
+    branches:
+      - dev
 
 env:
-  # ADD YOUR ENVIRONMENT VARIABLES HERE
-
+  OS_NAMESPACE: jarneb-dev
 jobs:
   deploy:
     if: # ADD YOUR CONDITION HERE
@@ -18,10 +19,10 @@ jobs:
       - name: Login OpenShift
         uses: redhat-actions/oc-login@v1
         with:
-          openshift_server_url: <<TODO>>
-          openshift_token: <<TODO>>
-          namespace: <<TODO>>
+          openshift_server_url: ${{ secrets.OS_URL }}
+          openshift_token: ${{ secrets.OS_TOKEN }}
+          namespace: ${{ env.OS_NAMESPACE }}
 
       - name: Apply Openshift YAML
         run: |
-          # ADD YOUR COMMANDS HERE
+          oc apply -f infra/openshift.yaml -n $OPENSHIFT_NAMESPACE
