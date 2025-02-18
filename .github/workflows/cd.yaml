@@ -3,13 +3,13 @@ name: Release Application
 on:
   push:
     branches:
-      - dev
+      - "**"
 
 env:
   OS_NAMESPACE: jarneb-dev
 jobs:
   deploy:
-    if: # ADD YOUR CONDITION HERE
+    if: github.ref == 'refs/heads/dev'
     environment: development
     runs-on: ubuntu-22.04
     steps:
@@ -25,4 +25,4 @@ jobs:
 
       - name: Apply Openshift YAML
         run: |
-          oc apply -f infra/openshift.yaml -n $OPENSHIFT_NAMESPACE
+          oc apply -f infra/openshift.yaml -n ${{ env.OS_NAMESPACE }}
