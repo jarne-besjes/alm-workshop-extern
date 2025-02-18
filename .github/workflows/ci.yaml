@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - "**"
-
+  release:
+    types:
+      - published
 env:
   CONTAINER_REPOSITORY: quay.io/jarneb # PUT YOUR OWN USERNAME HERE
   CONTAINER_IMAGE: alm-workshop
