@@ -117,17 +117,16 @@ We'll deploy our container to **RedHat OpenShift Sandbox**.
 
 #### **Steps**
 1. Log in to [OpenShift Sandbox](https://console.redhat.com/openshift/sandbox).
-2. Press "Getting started"
-3. You should be able to launch OpenShift
+2. You should be able to launch OpenShift
    
-   ![OpenShift Launch](docs/redhat-start-page.png)
+   ![OpenShift Launch](docs/redhat-dev-sandbox.png)
    
-4. Go to the **Developer menu → +Add → Container Images** option.
-5. Deploy your Quay.io container image by using the image registry URL.
+3. Click on the *+* button on the top right corner.
+4. Deploy your Quay.io container image by using the image registry URL.
    * Runtime icon = Golang
    * Deploy resource type = deployment
    * Rest should be OK by default
-6. Verify deployment via **Topology View** and try to access the remote endpoint.
+5. Verify deployment via **Topology View** and try to access the remote endpoint.
    * Click the little arrow icon above your application to open the route.
    
    ![OpenShift Route](docs/openshift-topology-open-route.png)

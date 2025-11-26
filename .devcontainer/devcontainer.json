@@ -4,7 +4,7 @@
 {
   "name": "ALM Workshop",
   // Use Debian based base image to support Golang feature
-  "image": "craealmworkshop.azurecr.io/alm-workshop-base/devcontainer:1.5.0",
+  "image": "quay.io/mortierdaan/alm-workshop-base/devcontainer:1.5.0",
   "customizations": {
     "vscode": {
       // Open in VSCode by pressing together "CTRL + SHIFT + P" & Type "Open Remote Preferences (JSON)"
@@ -25,8 +25,8 @@
         "redhat.vscode-yaml",
         "eamodio.gitlens",
         "766b.go-outliner",
-				"golang.go",
-				"premparihar.gotestexplorer"
+        "golang.go",
+        "premparihar.gotestexplorer"
       ]
     }
   },
