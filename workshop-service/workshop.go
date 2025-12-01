@@ -16,13 +16,21 @@ var workshop = Workshop{
 	Name:         "ALM Workshop",
 	Date:         "1/12/2025",
 	Presentator:  "AE Consultants",
-	Participants: []string{"John Doe", "Mary Little Lamb", "Chuck Norris"},
+	Participants: []string{"John Doe", "Mary Little Lamb", "Chuck Norris", "Jarne Besjes"},
+	SweaterScore: 10,
 }
 
 func getWorkshopHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
+
+	// validate sweater score (0-10)
+	if workshop.SweaterScore < 0 {
+		workshop.SweaterScore = 0
+	} else if workshop.SweaterScore > 10 {
+		workshop.SweaterScore = 10
+	}
 
 	// Encode the struct to JSON and write it to the response
 	json.NewEncoder(w).Encode(workshop)
