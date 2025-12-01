@@ -10,6 +10,7 @@ type Workshop struct {
 	Date         string   `json:"date"`
 	Presentator  string   `json:"presentator"`
 	Participants []string `json:"participants"`
+	SweaterScore int      `json:"sweater_score"`
 }
 
 var workshop = Workshop{
