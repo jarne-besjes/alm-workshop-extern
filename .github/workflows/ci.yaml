@@ -2,6 +2,9 @@ name: Golang Docker Build
 
 on:
   push: # triggers on push to all branches
+  # run the workflow for GitHub Releases (when a release is published)
+  release:
+    types: [published]
 
 env:
   CONTAINER_REPOSITORY: quay.io/jarneb # PUT YOUR OWN USERNAME HERE
