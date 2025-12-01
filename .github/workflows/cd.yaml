@@ -1,0 +1,29 @@
+name: Release Application
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  OPENSHIFT_PROJECT: jarneb-dev
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    environment: development
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Login OpenShift
+        uses: redhat-actions/oc-login@v1
+        with:
+          openshift_server_url: https://api.rm3.7wse.p1.openshiftapps.com:6443
+          openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
+          namespace: ${{ env.OPENSHIFT_PROJECT }}
+
+      - name: Apply Openshift YAML
+        run: |
+          oc apply -f infra/openshift.yaml
