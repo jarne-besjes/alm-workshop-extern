@@ -9,7 +9,7 @@ metadata:
     app: dev-alm-workshop-2025-app
 spec:
   ## TODO: Update replica amount
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       # Indicates to which pods the Deployment controller should bind
@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: workshop
-          # TODO: Update image to your image
+          # TODO: Update image to your image (CD will overwrite this on release events)
           image: quay.io/jarneb/alm-workshop:latest
           imagePullPolicy: Always
           ports:

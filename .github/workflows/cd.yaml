@@ -4,13 +4,22 @@ on:
   push:
     branches:
       - main
+  # trigger on GitHub releases being published so we can deploy release-tagged images
+  release:
+    types: [published]
 
 env:
   OPENSHIFT_PROJECT: jarneb-dev
+  # the container repository & image name used by CI; used below when deploying a release tag
+  CONTAINER_REPOSITORY: quay.io/jarneb
+  CONTAINER_IMAGE: alm-workshop
 
 jobs:
   deploy:
-    if: github.ref == 'refs/heads/main'
+    # run on pushes to main OR when a release is published
+    if: |
+      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'release' && github.event.action == 'published')
     environment: development
     runs-on: ubuntu-22.04
     steps:
@@ -27,3 +36,12 @@ jobs:
       - name: Apply Openshift YAML
         run: |
           oc apply -f infra/openshift.yaml
+
+      - name: Deploy release image
+        if: github.event_name == 'release' && github.event.action == 'published'
+        run: |
+          TAG=${{ github.event.release.tag_name }}
+          IMAGE=${{ env.CONTAINER_REPOSITORY }}/${{ env.CONTAINER_IMAGE }}:${TAG}
+          echo "Using image: ${IMAGE}"
+          # update the deployment's container image to the released tag
+          oc set image deployment/dev-alm-workshop-2025-app workshop=${IMAGE} -n ${{ env.OPENSHIFT_PROJECT }}
